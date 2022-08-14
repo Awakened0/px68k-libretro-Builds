@@ -1,0 +1,40 @@
+name: px68k-libretro Builds
+on:
+  workflow_dispatch:
+jobs:
+  Windows:
+    name: Build px68k-libretro
+    runs-on: windows-latest
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          base-devel
+          git
+          make
+          mingw-w64-x86_64-toolchain
+          mingw-w64-x86_64-ntldd
+          mingw-w64-x86_64-zlib
+          mingw-w64-x86_64-pkg-config
+          mingw-w64-x86_64-wget
+          unzip
+          p7zip
+    - uses: actions/checkout@v2
+    - name: Fetch the source
+      run: git clone https://github.com/energy-t/px68k-libretro/tree/musashi
+    - shell: msys2 {0}
+      working-directory: px68k-libretro
+      run: |
+        make -j8
+    - name: Zip .dll
+      working-directory: px68k-libretro
+      run: 7z a -mx=9 px68k-libretro-Win-x86_64.7z *.dll
+    - name: Upload 7z
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: px68k-libretro/px68k-libretro-Win-x86_64.7z
+        tag: Main
+        asset_name: px68k-libretro-Win-x86_64.7z
+        overwrite: true

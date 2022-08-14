@@ -22,7 +22,7 @@ jobs:
           p7zip
     - uses: actions/checkout@v2
     - name: Fetch the source
-      run: git clone https://github.com/energy-t/px68k-libretro/tree/musashi
+      run: git clone -b musashi https://github.com/energy-t/px68k-libretro
     - shell: msys2 {0}
       working-directory: px68k-libretro
       run: |

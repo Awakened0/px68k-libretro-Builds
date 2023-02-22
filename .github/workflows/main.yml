@@ -26,7 +26,7 @@ jobs:
     - shell: msys2 {0}
       working-directory: px68k-libretro
       run: |
-        make -j8 musashi
+        make -j8 M68K=1
     - name: Zip .dll
       working-directory: px68k-libretro
       run: 7z a -mx=9 px68k-libretro-Win-x86_64.7z *.dll

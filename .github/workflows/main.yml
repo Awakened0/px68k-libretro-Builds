@@ -20,13 +20,13 @@ jobs:
           mingw-w64-x86_64-wget
           unzip
           p7zip
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Fetch the source
       run: git clone https://github.com/libretro/px68k-libretro
     - shell: msys2 {0}
       working-directory: px68k-libretro
       run: |
-        make -j8
+        make -j8 -musashi
     - name: Zip .dll
       working-directory: px68k-libretro
       run: 7z a -mx=9 px68k-libretro-Win-x86_64.7z *.dll

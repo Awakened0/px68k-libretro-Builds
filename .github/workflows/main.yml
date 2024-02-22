@@ -20,7 +20,7 @@ jobs:
           mingw-w64-x86_64-wget
           unzip
           p7zip
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Fetch the source
       run: git clone https://github.com/libretro/px68k-libretro
     - shell: msys2 {0}
